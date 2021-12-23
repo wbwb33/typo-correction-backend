@@ -30,6 +30,9 @@ COPY . /app
 # set env for python lib
 ENV PATH=/root/.local/bin:$PATH
 
+# expose port
+EXPOSE 80
+
 # execute main py
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
 # END of app(base)
