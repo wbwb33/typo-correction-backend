@@ -3,11 +3,12 @@
 # to target this stage $ docker build --target builder -t builder .
 FROM python:3.8-slim as builder
 
+# set workdir and install dependency
+WORKDIR /install
+
 # copy required library list to install folder, auto create install folder if not exist
 COPY requirements.txt /install/requirements.txt
 
-# set workdir and install dependency
-WORKDIR /install
 RUN pip install --no-cache-dir --user -r requirements.txt
 # END of builder
 
@@ -20,17 +21,15 @@ FROM python:3.8-slim as app
 # copy installed library from builder image
 COPY --from=builder /root/.local /root/.local
 
+# set workdir to app
+WORKDIR /app
+
 # copy all project files into app, auto create app folder if not exist
 COPY . /app
-
-# set workdir to app
-WORKDIR app
 
 # set env for python lib
 ENV PATH=/root/.local/bin:$PATH
 
-EXPOSE 8000
-
 # execute main py
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
 # END of app(base)

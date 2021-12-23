@@ -1,5 +1,11 @@
 **/__pycache__
-.venv
+
+.git*
+*.md
+
 docker-compose.yml
 Dockerfile
 .dockerignore
+
+poetry.lock
+pyproject.toml

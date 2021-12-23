@@ -3,5 +3,4 @@ services:
   app:
     build: .
     ports: 
-      - 8883:8000
-    restart: always
+      - 8000:80
