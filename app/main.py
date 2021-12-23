@@ -30,3 +30,7 @@ async def load_data():
 def main_app(input: DataInput):
     suggestions = sym_spell.lookup_compound(input.string, max_edit_distance=2)
     return { "result": suggestions[0].term + " " }
+
+@app.get("/get-here")
+def get_here():
+    return { "status": "up" }
